@@ -1,0 +1,209 @@
+<!-- <!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Usuarios</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+
+<body>
+    <div class="container-fluid mt-5">
+        <div class="row mb-4">
+            <div class="col-md-8">
+                <input type="text" id="texto" class="form-control" placeholder="Buscar..." aria-label="Buscar"
+                    onkeyup="buscarUserPorFiltro(document.getElementById('texto').value)"
+                    aria-describedby="button-addon2">
+            </div>
+            <div class="col-md-4 text-right">
+                <button type="button" class="btn btn-outline-dark mr-2" onclick="listarUser(); blanquearCampos()">
+                    <i class="fas fa-eraser"></i>
+                </button>
+                <button type="button" class="btn btn-dark" id="button-addon3" data-toggle="modal"
+                    onclick="registrarUserBandera=true; limpiar();" data-target="#exampleModal">
+                    <i class="fas fa-plus"></i> Añadir Usuario
+                </button>
+            </div>
+        </div>
+
+        Contenedor para la tabla -->
+        <!-- <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th class="text-center align-middle">Tipo de Documento</th>
+                        <th class="text-center align-middle">N° Documento</th>
+                        <th class="text-center align-middle">Nombres</th>
+                        <th class="text-center align-middle">Apellidos</th>
+                        <th class="text-center align-middle">Correo</th>
+                        <th class="text-center align-middle">Fecha de Nacimiento</th>
+                        <th class="text-center align-middle">Ultima Actualización</th>
+                        <th class="text-center align-middle">Ultimo Inicio Sesión</th>
+                        <th class="text-center align-middle">Estado</th>
+                        <th class="text-center align-middle">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody id="cuerpoTabla">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <style>
+        /* Estilos personalizados para el modal */
+        .modal-custom {
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            background-color: #f9f9f9;
+        }
+
+        .modal-header {
+            background-color: #343a40;
+            color: #fff;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+        }
+
+        .modal-footer {
+            border-top: none;
+            padding-top: 15px;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            display: block;
+            width: 100%;
+        }
+
+        .btn-dark {
+            background-color: #343a40;
+            border-color: #343a40;
+            border-radius: 20px;
+        }
+
+        .btn-dark:hover {
+            background-color: #343a40;
+        }
+
+        .modal-body {
+            padding: 20px;
+        }
+
+        .modal-footer {
+            justify-content: center;
+            padding-bottom: 20px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        .table thead th {
+            white-space: nowrap;
+            background-color: #343a40;
+            color: #fff;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #e9ecef;
+        }
+
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: #f8f9fa;
+        }
+    </style>
+
+    Modal -->
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content modal-custom">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Registro Usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form class="row needs-validation">
+                        <div class="form-group col-md-6">
+                            <label for="tipoDocumento">Tipo </label>
+                            <select class="form-control" id="tipoDocumento" onfocusout="validarTipoDocumento(this)" required>
+                                <option value="" disabled selected>Seleccionar Tipo de Documento</option>
+                                <option value="TI">TI</option>
+                                <option value="CC">CC</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="numDocumento">N° Documento</label>
+                            <input type="text" class="form-control" id="numDocumento" placeholder="N° Documento"
+                                onfocusout="validarNumDocumento(this)" onkeypress="soloNumeros(event);" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="nombres">Nombres</label>
+                            <input type="text" class="form-control" id="nombres" placeholder="Nombres"
+                                onfocusout="validarNombres(this)" onkeypress="soloLetras(event);" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="apellidos">Apellidos</label>
+                            <input type="text" class="form-control" id="apellidos" placeholder="Apellidos"
+                                onfocusout="validarApellidos(this)" onkeypress="soloLetras(event);" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="correo">Correo</label>
+                            <input type="text" class="form-control" id="correo" placeholder="Correo Electrónico"
+                                onfocusout="validarCorreo(this)" onkeypress="alfaNumericosSignos(event);" required>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="password">Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="Contraseña"
+                                onfocusout="validarPassword(this)" onkeypress="alfaNumericosSignos(event);" required>
+                        </div>
+                        
+                        <div class="form-group col-md-6">
+                            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                            <input type="date" class="form-control" id="fechaNacimiento" placeholder="Fecha Nacimiento"
+                                onfocusout="validarFechaNacimiento(this)" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="fechaModifi">Última Actualización</label>
+                            <input type="date" class="form-control" id="fechaModifi"
+                                placeholder="Última Actualización" onfocusout="validarFechaModifi(this)" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="fechaInicio">Último Inicio Sesión</label>
+                            <input type="date" class="form-control" id="fechaInicio" placeholder="Último Inicio Sesión"
+                                onfocusout="validarFechaInicio(this)" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="estado">Estado</label>
+                            <select class="form-control" id="estado" onfocusout="validarEstado(this)" required>
+                                <option value="" disabled selected>Seleccionar</option>
+                                <option value="Activo">Activo</option>
+                                <option value="Inactivo">Inactivo</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-dark" onclick="registrarUser();">Registrar</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+<!-- 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/Front-end/user.js"></script>
+</body>
+
+</html> -->
