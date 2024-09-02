@@ -18,6 +18,9 @@ public interface Iuser extends CrudRepository<user, String> {
     @Query("SELECT u FROM user u WHERE TIMESTAMPDIFF(YEAR, u.fechaNacimiento, NOW())>=18 AND u.tipoDocumento = 'TI'")
     List<user> cambiarTipoDocumento();
 
-    @Query("SELECT u FROM usuario u WHERE DATEDIFF(NOW(), u.fechaModifi) >= 90")
-    List<user> actualizarContraseña();
+    @Query("SELECT u FROM user u WHERE DATEDIFF(NOW(), u.fechaModifi) >= 90")
+    List<user> actualizarPassword();
+
+    @Query("SELECT u FROM user u WHERE  DATEDIFF(NOW(), u.fechaInicio) >= 30")
+    List<user> inicioSesionNotificar();
 }

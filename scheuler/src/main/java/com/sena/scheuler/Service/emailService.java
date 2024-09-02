@@ -68,6 +68,60 @@ public class emailService {
         }
     }
 
+    public String actualizarPassword(user user) {
+        try {
+            String asunto = "Es hora de actualizar su contraseña";
+            String cuerpo = ""
+                    + "<body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;\">\r\n"
+                    + "<div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\r\n"
+                    + "  <h1 style=\"font-size: 24px; font-weight: bold; color: #333333;\">¡Hola! " + user.getNombres()
+                    + "</h1>\r\n"
+                    + "  <p style=\"font-size: 16px; color: #555555;\">Queremos recordarte que es el momento de actualizar su contraseña. Es un proceso rápido que te ayudará a mantener tus datos al día en nuestra web.</p>\r\n"
+                    + "  <p style=\"font-size: 16px; color: #555555;\">Por favor, accede a tu cuenta y realiza la actualización lo antes posible.</p>\r\n"
+                    + "  <p style=\"font-size: 16px; color: #555555;\">Gracias por tu colaboración.</p>\r\n"
+                    + "</div>\r\n"
+                    + "</body>";
+
+            var retorno = enviarCorreo(user.getCorreo(), asunto, cuerpo);
+            if (retorno) {
+                return "se envió correctamente";
+            } else {
+                return "No se pudo envíar";
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return "Error al envíar " + e.getMessage();
+        }
+    }
+
+    public String inicioSesionNotificar(user user) {
+        try {
+            String asunto = "Es hora de actualizar su contraseña";
+            String cuerpo = ""
+                    + "<body style=\"font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px;\">\r\n"
+                    + "<div style=\"max-width: 600px; margin: 0 auto; background-color: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\r\n"
+                    + "  <h1 style=\"font-size: 24px; font-weight: bold; color: #333333;\">¡Hola! " + user.getNombres()
+                    + "</h1>\r\n"
+                    + "  <p style=\"font-size: 16px; color: #555555;\">Queremos recordarte que es el momento de iniciar sesion. Es un proceso rápido que te ayudará a mantener tus datos al día en nuestra web.</p>\r\n"
+                    + "  <p style=\"font-size: 16px; color: #555555;\">Por favor, accede a tu cuenta y realiza la actualización lo antes posible.</p>\r\n"
+                    + "  <p style=\"font-size: 16px; color: #555555;\">Gracias por tu colaboración.</p>\r\n"
+                    + "</div>\r\n"
+                    + "</body>";
+
+            var retorno = enviarCorreo(user.getCorreo(), asunto, cuerpo);
+            if (retorno) {
+                return "se envió correctamente";
+            } else {
+                return "No se pudo envíar";
+            }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            return "Error al envíar " + e.getMessage();
+        }
+    }
+
     public boolean enviarCorreo(String destinatario, String asunto, String cuerpo) throws MessagingException {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();

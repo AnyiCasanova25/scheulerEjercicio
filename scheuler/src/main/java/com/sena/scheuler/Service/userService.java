@@ -41,6 +41,18 @@ public class userService implements IuserService {
     }
 
     @Override
+    public List<user> actualizarPassword() {
+        List<user> listaUser = data.actualizarPassword();
+        return listaUser;
+    }
+
+    @Override
+    public List<user> inicioSesionNotificar() {
+        List<user> listaUser = data.inicioSesionNotificar();
+        return listaUser;
+    }
+
+    @Override
     public Optional<user> findOne(String id) {
         Optional<user> user =data.findById(id);
         return user;

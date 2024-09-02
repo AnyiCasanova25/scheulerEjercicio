@@ -16,6 +16,9 @@ public interface IuserService {
     public List<user> cambiarTipoDocumento();
 
     // public List<user> userDate(Date fechaNacimiento, Date  fechaInicio , Date fechaModifi);
+    public List<user> actualizarPassword();
+
+    public List<user> inicioSesionNotificar();
 
     public Optional<user> findOne(String id);
 }

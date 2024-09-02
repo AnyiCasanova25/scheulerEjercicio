@@ -57,13 +57,33 @@ public class task {
     @Autowired
     private emailService email;
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 10000)
     public void sendNotificationcron() {
         var listaUser = data.cambiarTipoDocumento();
         for (user user : listaUser) {
             System.out.println("Usuario que requiere actualizar su documento " + 
             user.getNombres());
             email.cambiarTipoDocumento(user);
+        }
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void sendNotificationcronactualizarPassword() {
+        var listaUser = data.actualizarPassword();
+        for (user user : listaUser) {
+            System.out.println("Usuario que requiere actualizar su contraseña " + 
+            user.getNombres());
+            email.actualizarPassword(user);
+        }
+    }
+
+    @Scheduled(fixedRate = 10000)
+    public void sendNotificationcroninicioSesionNotificar() {
+        var listaUser = data.inicioSesionNotificar();
+        for (user user : listaUser) {
+            System.out.println("Inicio Sesion"  + 
+            user.getNombres());
+            email.inicioSesionNotificar(user);
         }
     }
 }
