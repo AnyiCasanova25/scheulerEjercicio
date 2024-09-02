@@ -57,7 +57,7 @@ public class task {
     @Autowired
     private emailService email;
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 30 8 * * *")
     public void sendNotificationcron() {
         var listaUser = data.cambiarTipoDocumento();
         for (user user : listaUser) {
@@ -67,7 +67,7 @@ public class task {
         }
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 30 8 * * *")
     public void sendNotificationcronactualizarPassword() {
         var listaUser = data.actualizarPassword();
         for (user user : listaUser) {
@@ -77,7 +77,7 @@ public class task {
         }
     }
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(cron = "0 30 8 * * *")
     public void sendNotificationcroninicioSesionNotificar() {
         var listaUser = data.inicioSesionNotificar();
         for (user user : listaUser) {
